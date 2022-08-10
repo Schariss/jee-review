@@ -35,6 +35,7 @@ public class Login extends HttpServlet {
             throws IOException, ServletException {
         System.out.println(Thread.currentThread().getName());
         System.out.println("get method called");
+        response.setHeader("Demo", "Login App");
         String usernameP = request.getParameter("username");
         String passwordP = request.getParameter("password");
         if(usernameP == null) usernameP = "";
