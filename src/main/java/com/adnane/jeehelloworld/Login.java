@@ -7,7 +7,7 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 
 // loadOnStartup = 1 execute init method immediately after servlet creation
-@WebServlet(name = "login", urlPatterns={"/login"}, loadOnStartup = 1)
+@WebServlet(urlPatterns={"/login"})
 public class Login extends HttpServlet {
 
     private String db_url;
@@ -25,14 +25,15 @@ public class Login extends HttpServlet {
         System.out.println("init, db url : " + db_url);
     }
 
-    @Override
-    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("Service method called");
-        super.service(req, resp);
-    }
+//    @Override
+//    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//        System.out.println("Service method called");
+//        super.service(req, resp);
+//    }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
+        System.out.println(Thread.currentThread().getName());
         System.out.println("get method called");
         String usernameP = request.getParameter("username");
         String passwordP = request.getParameter("password");
