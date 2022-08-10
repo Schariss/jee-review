@@ -9,8 +9,14 @@ import javax.servlet.annotation.*;
 @WebServlet(name = "login", urlPatterns={"/login"})
 public class Login extends HttpServlet {
 
+    // A servlet is created only once
+    public Login(){
+        super();
+        System.out.println("Login servlet created");
+    }
+
     public void init() {
-        System.out.println("I am right here");
+        System.out.println("init method called");
     }
 
     @Override
@@ -19,40 +25,35 @@ public class Login extends HttpServlet {
         super.service(req, resp);
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
         System.out.println("get method called");
-        response.setContentType("text/html");
-        try (PrintWriter out = response.getWriter()){
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("     <head>");
-            out.println("         <title>Login Page</title>");
-            out.println("     </head>");
-            out.println("     <body>");
-            out.print("         <h1>Login</h1>");
-            out.println("         <h2>" + new Date() + "</h2>");
-            out.println("         <form method='post' action='login'>");
-            out.println("               <input type='text' size='20' name='username' placeholder='Username'>");
-            out.println("               <input type='password' name='password' placeholder='Password'>");
-            out.println("               <input type='submit' value='sign in'>");
-            out.println("         </form>");
-            out.println("     </body>");
-            out.println("</html>");
-        }
-
+        String usernameP = request.getParameter("username");
+        String passwordP = request.getParameter("password");
+        if(usernameP == null) usernameP = "";
+        if(passwordP == null) passwordP = "";
+        // if there is no session by passing true, a new session will automatically be created
+        HttpSession session = request.getSession(true);
+        session.setAttribute("username", usernameP);
+        session.setAttribute("password", passwordP);
+        request.getRequestDispatcher("/login.jsp").forward(request, response);
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
         System.out.println("post method called");
         String usernameP = request.getParameter("username");
-        String passwordP = request.getParameter("username");
+        String passwordP = request.getParameter("password");
+        HttpSession session = request.getSession(true);
+        session.setAttribute("username", usernameP);
+        session.setAttribute("password", passwordP);
+
         if(usernameP.equals("Adnane") && passwordP.equals("Adnane")){
-            response.setContentType("text/html");
-            try(PrintWriter out = response.getWriter()){
-                out.println("Successfully logged in");
-            }
+            session.setAttribute("isConnected", true);
+            request.getRequestDispatcher("/home.jsp").forward(request, response);
         } else {
-            doGet(request, response);
+            session.setAttribute("isConnected", false);
+            request.getRequestDispatcher("/login.jsp").forward(request, response);
         }
     }
 }
