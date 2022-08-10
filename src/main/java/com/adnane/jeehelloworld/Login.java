@@ -6,8 +6,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 
-@WebServlet(name = "login", urlPatterns={"/login"})
+// loadOnStartup = 1 execute init method immediately after servlet creation
+@WebServlet(name = "login", urlPatterns={"/login"}, loadOnStartup = 1)
 public class Login extends HttpServlet {
+
+    private String db_url;
 
     // A servlet is created only once
     public Login(){
@@ -16,7 +19,10 @@ public class Login extends HttpServlet {
     }
 
     public void init() {
-        System.out.println("init method called");
+        // If we try doing this into the constructor we d get a 500 error
+        // because we are not sure the servlet is created yet
+        db_url = this.getServletContext().getInitParameter("DATABASE_URL");
+        System.out.println("init, db url : " + db_url);
     }
 
     @Override
@@ -55,5 +61,11 @@ public class Login extends HttpServlet {
             session.setAttribute("isConnected", false);
             request.getRequestDispatcher("/login.jsp").forward(request, response);
         }
+    }
+
+    @Override
+    public void destroy() {
+        super.destroy();
+        System.out.println("Servlet destroyed");
     }
 }
