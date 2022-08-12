@@ -5,13 +5,28 @@
          version="4.0">
 
     <context-param>
-        <param-name>DATABASE_URL</param-name>
-        <param-value>jdbc:mysql://localhost:3306/Hello</param-value>
+        <param-name>JDBC_DRIVER</param-name>
+        <param-value>com.mysql.cj.jdbc.Driver</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>JDBC_URL</param-name>
+        <param-value>jdbc:mysql://localhost:8889/WebStore</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>JDBC_USERNAME</param-name>
+        <param-value>Schariss</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>JDBC_PASSWORD</param-name>
+        <param-value>WebStore135</param-value>
     </context-param>
 
     <session-config>
         <!-- time in minutes -->
-        <session-timeout>1</session-timeout>
+        <session-timeout>15</session-timeout>
     </session-config>
 
     <!-- old method
