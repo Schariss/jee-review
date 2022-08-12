@@ -1,4 +1,3 @@
-<%@ page import="java.util.Date" %>
 <%--
   Created by IntelliJ IDEA.
   User: alilo
@@ -12,14 +11,15 @@
 <head>
     <meta charset="UTF-8"/>
     <title>Login Page</title>
+    <link rel="stylesheet" type="text/css" href="styles.css" />
 </head>
 <body>
-    <h1>Login JSP</h1>
-    <h2><%= new Date() %></h2>
+    <h1>Login Screen</h1>
     <form method="post" action="login">
         <input type="text" name="username" placeholder="Username" value="${username}" autofocus>
         <input type="password" name="password" placeholder="Password" value="${password}">
-        <input type="submit" value="Sign in">
+        <input type="submit" value="Sign in"><br>
+        <div class="errorMessage">${errorMessage}</div>
     </form>
 </body>
 </html>

@@ -6,7 +6,7 @@ import javax.servlet.http.HttpSessionListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-@WebListener
+//@WebListener
 public class MySessionListener implements HttpSessionListener {
 
     private static final Logger LOG = Logger.getLogger(MySessionListener.class.getName());

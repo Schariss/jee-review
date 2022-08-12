@@ -6,7 +6,7 @@ import javax.servlet.annotation.WebListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-@WebListener
+//@WebListener
 public class MyServletContext implements ServletContextListener {
 
     private static  final Logger LOG = Logger.getLogger(MyServletContext.class.getName());
